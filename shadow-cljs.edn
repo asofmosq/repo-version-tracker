@@ -1,0 +1,23 @@
+;;todo: need to figure out how to deploy in production?
+{:builds       {:app {:asset-path "/js"
+                      :dev        {:compiler-options
+                                   {:closure-defines {re-frame.trace.trace-enabled?        true
+                                                      day8.re-frame.tracing.trace-enabled? true}}}
+                      :devtools   {:after-load repo-version-tracker.core/initialize
+                                   :preloads   [day8.re-frame-10x.preload]}
+                      :modules    {:app {:entries [repo-version-tracker.core]}}
+                      :output-dir "public/js"
+                      :target     :browser}}
+ :dev-http     {8088 {:root    "public"
+                      :handler user/dev-handler}}
+ :http         {8000 {:root    "public"
+                      :handler user/prod-handler}}
+ :dependencies [[day8.re-frame/http-fx "0.2.3"]
+                [day8.re-frame/tracing "0.6.2"]
+                [day8.re-frame/re-frame-10x "1.0.2"]
+                [nrepl "0.9.0"]
+                [org.webjars.npm/bulma "0.9.3"]
+                [reagent "1.1.0"]
+                [reagent-utils "0.3.4"]
+                [re-frame "1.2.0"]]
+ :source-paths ["src"]}
